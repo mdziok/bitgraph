@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<?import sample.Transaction?>
+<GridPane hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1">
+
+        <VBox>
+            <Label prefHeight="25.0" prefWidth="90" text="Adress:" />
+            <Label prefHeight="25.0" prefWidth="90" text="Transaction: " />
+
+        </VBox>
+
+        <VBox>
+            <TextField prefHeight="25.0" prefWidth="100" />
+            <TextField prefHeight="25.0" prefWidth="100" />
+        </VBox>
+
+
+    </HBox>
+
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <Button id="button" text="Filter" onAction="#addTransaction"/>
+        <Button text="Compare with..." />
+        <Button text="Save as..." />
+        <Button text="Switch to table"/>
+    </HBox>
+
+    <!--<ImageView fx:id="image" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
+        <!--<image>-->
+            <!--<Image url="@pattern_graph4.jpg" />-->
+        <!--</image>-->
+
+    <!--</ImageView>-->
+
+    <TableView fx:id="tableView" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn text="Transaction address">
+                <cellValueFactory><PropertyValueFactory property="address" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Value">
+                <cellValueFactory><PropertyValueFactory property="value" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="time">
+                <cellValueFactory><PropertyValueFactory property="time" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <!--<items>-->
+            <!--<FXCollections fx:factory="observableArrayList">-->
+                <!--<Transaction address="" value=""-->
+                             <!--time="jacob.smith@example.com"/>-->
+            <!--</FXCollections>-->
+        <!--</items>-->
+    </TableView>
+
+    <Button text="Collect data from wallet..." GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints />
+      <RowConstraints />
+    </rowConstraints>
+
+</GridPane>
