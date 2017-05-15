@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import org.json.JSONArray;
@@ -17,7 +16,6 @@ import prefux.action.ActionList;
 import prefux.action.RepaintAction;
 import prefux.action.assignment.NodeDegreeSizeAction;
 import prefux.action.layout.*;
-import prefux.action.layout.graph.*;
 import prefux.activity.Activity;
 import prefux.controls.DragControl;
 import prefux.data.Graph;
@@ -42,29 +40,13 @@ public class Controller {
     private static final String URL = "https://blockexplorer.com/";
 
     @FXML private TableView<Transaction> tableView;
-    @FXML private ImageView image;
     @FXML private GridPane grid;
 
     private FxDisplay display;
 
-
     @FXML
-    protected void switchView(ActionEvent event){
-        if(image.isVisible()){
-            image.setVisible(false);
-            tableView.setVisible(true);
-        }
-        else {
-            tableView.setVisible(false);
-            image.setVisible(true);
-        }
-
-    }
-
-    @FXML
-    protected void addTransaction(ActionEvent event) {
+    protected void addTransaction() {
         ObservableList<Transaction> data = tableView.getItems();
-        System.out.println("kliknieto!");
         try {
             URL url = new URL(URL + "api/tx/b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c");
             URLConnection connection = url.openConnection();
@@ -107,7 +89,7 @@ public class Controller {
 
     @FXML
     public void graph(ActionEvent event) {
-        Graph graph = null;
+        Graph graph;
         Button b = (Button) event.getSource();
         try {
             if (display == null) {

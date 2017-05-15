@@ -14,9 +14,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.collections.FXCollections?>
-<?import sample.Transaction?>
-<?import prefux.FxDisplay?>
 
 <GridPane fx:id="grid" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
@@ -25,7 +22,6 @@
         <VBox>
             <Label prefHeight="25.0" prefWidth="90" text="Adress:" />
             <Label prefHeight="25.0" prefWidth="90" text="Transaction: " />
-
         </VBox>
 
         <VBox>
@@ -37,9 +33,9 @@
     </HBox>
 
     <HBox GridPane.columnIndex="1" GridPane.rowIndex="0">
-        <Button id="button" text="Filter" onAction="#addTransaction"/>
-        <Button text="Compare with..." />
-        <Button text="Save as..." />
+        <Button text="Filter" disable="true"/>
+        <Button text="Compare with..." disable="true"/>
+        <Button text="Save as..." disable="true"/>
         <Button text="Switch to graph" onAction="#graph"/>
     </HBox>
 
@@ -83,8 +79,10 @@
         </columns>
     </TableView>
 
-    <Button text="Collect data from wallet..." GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <Button text="Load data!" onAction="#addTransaction" />
+        <Button text="Collect data from wallet..." disable="true" />
+    </HBox>
 
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
