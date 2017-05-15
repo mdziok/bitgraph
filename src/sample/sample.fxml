@@ -16,7 +16,9 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.collections.FXCollections?>
 <?import sample.Transaction?>
-<GridPane hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<?import prefux.FxDisplay?>
+
+<GridPane fx:id="grid" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1">
 
@@ -38,17 +40,17 @@
         <Button id="button" text="Filter" onAction="#addTransaction"/>
         <Button text="Compare with..." />
         <Button text="Save as..." />
-        <Button text="Switch to table"/>
+        <Button text="Switch to table" onAction="#graph"/>
     </HBox>
 
-    <!--<ImageView fx:id="image" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
-        <!--<image>-->
-            <!--<Image url="@pattern_graph4.jpg" />-->
-        <!--</image>-->
+    <ImageView fx:id="image" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="false">
+        <image>
+            <Image url="@pattern_graph4.jpg" />
+        </image>
 
-    <!--</ImageView>-->
+    </ImageView>
 
-    <TableView fx:id="tableView" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <TableView fx:id="tableView" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="true">
         <columns>
             <TableColumn text="Transaction address">
                 <cellValueFactory><PropertyValueFactory property="address" />
@@ -63,12 +65,6 @@
                 </cellValueFactory>
             </TableColumn>
         </columns>
-        <!--<items>-->
-            <!--<FXCollections fx:factory="observableArrayList">-->
-                <!--<Transaction address="" value=""-->
-                             <!--time="jacob.smith@example.com"/>-->
-            <!--</FXCollections>-->
-        <!--</items>-->
     </TableView>
 
     <Button text="Collect data from wallet..." GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP" />

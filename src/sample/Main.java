@@ -20,6 +20,7 @@ import java.time.Instant;
 
 import org.json.*;
 
+import prefux.*;
 
 
 public class Main extends Application {
@@ -30,48 +31,6 @@ public class Main extends Application {
         primaryStage.setTitle("BitGraph");
         primaryStage.setScene(new Scene(root, 500, 400));
         primaryStage.show();
-
-
-//        TableView<Transaction> tableView = (TableView) root.lookup("#tableview");
-//        ObservableList<Transaction> data = tableView.getItems();
-//
-//        Button button = (Button) root.lookup("#button");
-//
-//        button.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("kliknieto!");
-//                try {
-//                    URL url = new URL("https://blockchain.info/pl/latestblock");
-//                    URLConnection connection = url.openConnection();
-//                    InputStream input = connection.getInputStream();
-//                    InputStreamReader inputStreamReader = new InputStreamReader(input);
-//
-//                    BufferedReader reader = new BufferedReader(inputStreamReader);
-//                    String line;
-//                    String json = "";
-//                    while ((line = reader.readLine()) != null){
-//                        System.out.println(line);
-//                        json = json + line + "\n";
-//                    }
-//
-//                    JSONObject object = new JSONObject(json);
-//                    String time = Instant.ofEpochSecond((Integer)object.get("time")).toString();
-//                    System.out.println(String.valueOf(object.get("time")));
-//                    System.out.println(Instant.ofEpochSecond((Integer)object.get("time")).toString());
-//
-//                    data.add(new Transaction("", "", time));
-//                    //                    Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>(){}.getType());
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                System.out.println();
-//            }
-//        });
-
-
-
 
     }
 
