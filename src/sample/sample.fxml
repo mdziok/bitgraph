@@ -40,7 +40,7 @@
         <Button id="button" text="Filter" onAction="#addTransaction"/>
         <Button text="Compare with..." />
         <Button text="Save as..." />
-        <Button text="Switch to table" onAction="#graph"/>
+        <Button text="Switch to graph" onAction="#graph"/>
     </HBox>
 
     <ImageView fx:id="image" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="false">
@@ -53,15 +53,31 @@
     <TableView fx:id="tableView" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="true">
         <columns>
             <TableColumn text="Transaction address">
-                <cellValueFactory><PropertyValueFactory property="address" />
+                <cellValueFactory><PropertyValueFactory property="transactionId" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Value">
-                <cellValueFactory><PropertyValueFactory property="value" />
+            <TableColumn text="In">
+                <cellValueFactory><PropertyValueFactory property="addressesIn" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="time">
+            <TableColumn text="Out">
+                <cellValueFactory><PropertyValueFactory property="addressesOut" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Time">
                 <cellValueFactory><PropertyValueFactory property="time" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Incoming">
+                <cellValueFactory><PropertyValueFactory property="valueIn" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Outcoming">
+                <cellValueFactory><PropertyValueFactory property="valueOut" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Fees">
+                <cellValueFactory><PropertyValueFactory property="fees" />
                 </cellValueFactory>
             </TableColumn>
         </columns>

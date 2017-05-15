@@ -3,6 +3,7 @@ package sample;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -27,9 +28,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.time.Instant;
 
 public class Controller {
+
+    private static final String URL = "https://blockexplorer.com/";
 
     @FXML private TableView<Transaction> tableView;
     @FXML private ImageView image;
@@ -56,7 +58,7 @@ public class Controller {
         ObservableList<Transaction> data = tableView.getItems();
         System.out.println("kliknieto!");
         try {
-            URL url = new URL("https://blockchain.info/pl/latestblock");
+            URL url = new URL(URL + "api/tx/b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c");
             URLConnection connection = url.openConnection();
             InputStream input = connection.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(input);
@@ -65,16 +67,11 @@ public class Controller {
             String line;
             String json = "";
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 json = json + line + "\n";
             }
 
             JSONObject object = new JSONObject(json);
-            String time = Instant.ofEpochSecond((Integer) object.get("time")).toString();
-            System.out.println(String.valueOf(object.get("time")));
-            System.out.println(Instant.ofEpochSecond((Integer) object.get("time")).toString());
-
-            data.add(new Transaction("", "", time));
+            data.add(new Transaction(object));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,11 +82,13 @@ public class Controller {
     private static final String GROUP = "graph";
 
     @FXML
-    public void graph() {
+    public void graph(ActionEvent event) {
         Graph graph = null;
+        Button b = (Button) event.getSource();
         try {
             if (display == null) {
                 tableView.setVisible(false);
+                b.setText("Switch to table");
                 graph = new GraphMLReader().readGraph("sample/data/socialnet.xml");
                 Visualization vis = new Visualization();
                 vis.add(GROUP, graph);
@@ -126,6 +125,7 @@ public class Controller {
                 display.setVisible(false);
                 display = null;
                 tableView.setVisible(true);
+                b.setText("Switch to graph");
             }
 
         } catch (DataIOException e) {
