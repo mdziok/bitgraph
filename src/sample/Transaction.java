@@ -5,106 +5,160 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Transaction {
 
-    private final SimpleStringProperty transactionId;
-    private final SimpleStringProperty valueOut;
-    private final SimpleStringProperty valueIn;
-    private final SimpleStringProperty time;
-    private final SimpleStringProperty addressesIn;
-    private final SimpleStringProperty addressesOut;
-    private final SimpleStringProperty fees;
+    private final SimpleStringProperty transactionIdSP;
+    private final SimpleStringProperty valueOutSP;
+    private final SimpleStringProperty valueInSP;
+    private final SimpleStringProperty timeSP;
+    private final SimpleStringProperty addressesInSP;
+    private final SimpleStringProperty addressesOutSP;
+    private final SimpleStringProperty feesSP;
+
+    private String id;
+    private double valueOut;
+    private double valueIn;
+    private Date time;
+    private List<String> addressesIn;
+    private List<String> addressesOut;
+    private double fees;
 
 
     public Transaction() {
-        this("","","","","","","");
+        this("",0,0,new Date(),new ArrayList<>(),new ArrayList<>(),0);
     }
 
-    public Transaction(String transactionId, String valueOut, String valueIn, String time, String addressesIn, String addressesOut, String fees) {
-        this.transactionId = new SimpleStringProperty(transactionId);
-        this.valueOut = new SimpleStringProperty(valueOut);
-        this.valueIn = new SimpleStringProperty(valueIn);
-        this.time = new SimpleStringProperty(time);
-        this.addressesIn = new SimpleStringProperty(addressesIn);
-        this.addressesOut = new SimpleStringProperty(addressesOut);
-        this.fees = new SimpleStringProperty(fees);
+    public Transaction(String transactionId, double valueIn, double valueOut, Date time, List<String> addressesIn, List<String> addressesOut, double fees) {
+        this.id = transactionId;
+        this.transactionIdSP = new SimpleStringProperty(transactionId);
+        this.valueIn = valueIn;
+        this.valueOut = valueOut;
+        this.valueOutSP = new SimpleStringProperty(String.valueOf(valueOut));
+        this.valueInSP = new SimpleStringProperty(String.valueOf(valueIn));
+        this.time = time;
+        this.timeSP = new SimpleStringProperty(time.toString());
+        this.addressesIn = addressesIn;
+        this.addressesOut = addressesOut;
+        this.addressesInSP = new SimpleStringProperty(addressesIn.toString());
+        this.addressesOutSP = new SimpleStringProperty(addressesOut.toString());
+        this.fees = fees;
+        this.feesSP = new SimpleStringProperty(String.valueOf(fees));
     }
 
-    public Transaction(JSONObject json){
-        this.transactionId = new SimpleStringProperty(json.getString("txid"));
-        this.valueOut = new SimpleStringProperty(json.get("valueOut").toString());
-        this.valueIn = new SimpleStringProperty(json.get("valueIn").toString());
-        this.time = new SimpleStringProperty(Instant.ofEpochSecond((Integer) json.get("time")).toString());
-        String in = "";
-        JSONArray a = json.getJSONArray("vout");
-        for (int i = 0; i < a.length(); i++){
-            in += a.getJSONObject(i).getJSONObject("scriptPubKey").get("addresses").toString();
-        }
-        this.addressesIn = new SimpleStringProperty(in);
-        String out = "";
-        a = json.getJSONArray("vin");
-        for (int i = 0; i < a.length(); i++){
-            out += a.getJSONObject(i).get("addr").toString();
-        }
-        this.addressesOut = new SimpleStringProperty(out);
-        this.fees = new SimpleStringProperty(json.get("fees").toString());
+    public String getId() {
+        return id;
     }
 
-    public String getTransactionId() {
-        return transactionId.get();
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId.set(transactionId);
+    public double getValueOut() {
+        return valueOut;
     }
 
-    public String getValueOut() {
-        return valueOut.get();
+    public void setValueOut(int valueOut) {
+        this.valueOut = valueOut;
     }
 
-    public void setValueOut(String valueOut) {
-        this.valueOut.set(valueOut);
+    public double getValueIn() {
+        return valueIn;
     }
 
-    public String getValueIn() {
-        return valueIn.get();
+    public void setValueIn(int valueIn) {
+        this.valueIn = valueIn;
     }
 
-    public void setValueIn(String valueIn) {
-        this.valueIn.set(valueIn);
+    public Date getTime() {
+        return time;
     }
 
-    public String getAddressesIn() {
-        return addressesIn.get();
+    public void setTime(Date time) {
+        this.time = time;
     }
 
-    public void setAddressesIn(String addressesIn) {
-        this.addressesIn.set(addressesIn);
+    public List<String> getAddressesIn() {
+        return addressesIn;
     }
 
-    public String getAddressesOut() {
-        return addressesOut.get();
+    public void setAddressesIn(List<String> addressesIn) {
+        this.addressesIn = addressesIn;
     }
 
-    public void setAddressesOut(String addressesOut) {
-        this.addressesOut.set(addressesOut);
+    public List<String> getAddressesOut() {
+        return addressesOut;
     }
 
-    public String getFees() {
-        return fees.get();
+    public void setAddressesOut(List<String> addressesOut) {
+        this.addressesOut = addressesOut;
     }
 
-    public void setFees(String fees) {
-        this.fees.set(fees);
+    public double getFees() {
+        return fees;
     }
 
-    public String getTime() {
-        return time.get();
+    public void setFees(int fees) {
+        this.fees = fees;
     }
 
-    public void setTime(String time) {
-        this.time.set(time);
+    public String getTransactionIdSP() {
+        return transactionIdSP.get();
+    }
+
+    public void setTransactionIdSP(String transactionId) {
+        this.transactionIdSP.set(transactionId);
+    }
+
+    public String getValueOutSP() {
+        return valueOutSP.get();
+    }
+
+    public void setValueOutSP(String valueOut) {
+        this.valueOutSP.set(valueOut);
+    }
+
+    public String getValueInSP() {
+        return valueInSP.get();
+    }
+
+    public void setValueInSP(String valueIn) {
+        this.valueInSP.set(valueIn);
+    }
+
+    public String getAddressesInSP() {
+        return addressesInSP.get();
+    }
+
+    public void setAddressesInSP(String addressesIn) {
+        this.addressesInSP.set(addressesIn);
+    }
+
+    public String getAddressesOutSP() {
+        return addressesOutSP.get();
+    }
+
+    public void setAddressesOutSP(String addressesOut) {
+        this.addressesOutSP.set(addressesOut);
+    }
+
+    public String getFeesSP() {
+        return feesSP.get();
+    }
+
+    public void setFeesSP(String fees) {
+        this.feesSP.set(fees);
+    }
+
+    public String getTimeSP() {
+        return timeSP.get();
+    }
+
+    public void setTimeSP(String time) {
+        this.timeSP.set(time);
     }
 
 }

@@ -7,13 +7,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
+
 import prefux.FxDisplay;
 import prefux.Visualization;
 import prefux.action.ActionList;
 import prefux.action.RepaintAction;
 import prefux.action.assignment.NodeDegreeSizeAction;
-import prefux.action.layout.graph.ForceDirectedLayout;
+import prefux.action.layout.*;
+import prefux.action.layout.graph.*;
 import prefux.activity.Activity;
 import prefux.controls.DragControl;
 import prefux.data.Graph;
@@ -28,6 +32,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Controller {
 
@@ -65,13 +73,29 @@ public class Controller {
 
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line;
-            String json = "";
+            String toJson = "";
             while ((line = reader.readLine()) != null) {
-                json = json + line + "\n";
+                toJson = toJson + line + "\n";
             }
 
-            JSONObject object = new JSONObject(json);
-            data.add(new Transaction(object));
+            JSONObject json = new JSONObject(toJson);
+            String id = json.getString("txid");
+            double valueOut = json.getDouble("valueOut");
+            double valueIn = json.getDouble("valueIn");
+            Date time = Date.from(Instant.ofEpochSecond((Integer) json.get("time")));
+            List<String> out = new ArrayList<>();
+            List<String> in = new ArrayList<>();
+
+            JSONArray a = json.getJSONArray("vout");
+            for (int i = 0; i < a.length(); i++){
+                out.add(a.getJSONObject(i).getJSONObject("scriptPubKey").get("addresses").toString());
+            }
+            a = json.getJSONArray("vin");
+            for (int i = 0; i < a.length(); i++){
+                in.add(a.getJSONObject(i).get("addr").toString());
+            }
+            double fees = json.getDouble("fees");
+            data.add(new Transaction(id, valueOut, valueIn, time, in, out, fees));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,22 +113,18 @@ public class Controller {
             if (display == null) {
                 tableView.setVisible(false);
                 b.setText("Switch to table");
-                graph = new GraphMLReader().readGraph("sample/data/socialnet.xml");
+                graph = new GraphMLReader().readGraph("sample/data/graph.xml");
                 Visualization vis = new Visualization();
                 vis.add(GROUP, graph);
 
-                ShapeRenderer female = new ShapeRenderer();
-                female.setFillMode(ShapeRenderer.GRADIENT_SPHERE);
-                LabelRenderer lr = new LabelRenderer("name");
-                ShapeRenderer male = new ShapeRenderer();
-                male.setFillMode(ShapeRenderer.GRADIENT_SPHERE);
+                LabelRenderer lr = new LabelRenderer("address");
                 CombinedRenderer r = new CombinedRenderer();
                 r.add(lr);
                 RendererFactory rfa = new DefaultRendererFactory(r);
                 vis.setRendererFactory(rfa);
 
                 ActionList layout = new ActionList(Activity.INFINITY,30);
-                layout.add(new ForceDirectedLayout("graph"));
+                layout.add(new CircleLayout("graph", 100));
                 layout.add(new RepaintAction());
                 vis.putAction("layout", layout);
 
