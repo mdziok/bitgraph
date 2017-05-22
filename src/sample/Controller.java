@@ -23,6 +23,7 @@ import prefux.data.io.DataIOException;
 import prefux.data.io.GraphMLReader;
 import prefux.render.*;
 import prefux.util.PrefuseLib;
+import sample.domain.WalletAddress;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +39,7 @@ import java.util.List;
 public class Controller {
 
     private static final String URL = "https://blockexplorer.com/";
+    private static org.neo4j.ogm.session.Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
 
     @FXML private TableView<Transaction> tableView;
     @FXML private GridPane grid;
@@ -55,10 +57,11 @@ public class Controller {
 
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line;
-            String toJson = "";
+            StringBuilder builder = new StringBuilder();
             while ((line = reader.readLine()) != null) {
-                toJson = toJson + line + "\n";
+               builder.append(line);
             }
+            String toJson = builder.toString();
 
             JSONObject json = new JSONObject(toJson);
             String id = json.getString("txid");
@@ -68,16 +71,27 @@ public class Controller {
             List<String> out = new ArrayList<>();
             List<String> in = new ArrayList<>();
 
+            double fees = json.getDouble("fees");
+            sample.domain.Transaction transaction = new sample.domain.Transaction(id, valueOut,valueIn, time,fees);
+            //session.save(transaction);
+
             JSONArray a = json.getJSONArray("vout");
             for (int i = 0; i < a.length(); i++){
                 out.add(a.getJSONObject(i).getJSONObject("scriptPubKey").get("addresses").toString());
+                WalletAddress addr = new WalletAddress(a.getJSONObject(i).getJSONObject("scriptPubKey").get("addresses").toString(), transaction);
+                //session.save(addr);
+                transaction.addressesOut.add(addr);
             }
             a = json.getJSONArray("vin");
             for (int i = 0; i < a.length(); i++){
                 in.add(a.getJSONObject(i).get("addr").toString());
+                WalletAddress addr = new WalletAddress(a.getJSONObject(i).get("addr").toString(), transaction);
+                //session.save(addr);
+                transaction.addressesIn.add(addr);
             }
-            double fees = json.getDouble("fees");
+
             data.add(new Transaction(id, valueOut, valueIn, time, in, out, fees));
+            session.save(transaction);
 
         } catch (IOException e) {
             e.printStackTrace();
