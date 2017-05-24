@@ -22,7 +22,7 @@ public class Transaction {
     private List<String> addressesIn;
     private List<String> addressesOut;
     private double fees;
-
+    private List<String> txIn;
 
     public Transaction() {
         this("",0,0,new Date(),new ArrayList<>(),new ArrayList<>(),0);
@@ -87,6 +87,15 @@ public class Transaction {
 
     public List<String> getAddressesOut() {
         return addressesOut;
+    }
+
+
+    public List<String> getTxIn() {
+        return txIn;
+    }
+
+    public void setTxIn(List<String> txIn) {
+        this.txIn = txIn;
     }
 
     public void setAddressesOut(List<String> addressesOut) {

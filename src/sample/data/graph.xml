@@ -6,28 +6,42 @@
         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
     <!-- data schema -->
     <key id="address" for="node" attr.name="address" attr.type="string" />
-    <!--<key id="value" for="edge" attr.name="value" attr.type="double"/>-->
+    <key id="type" for="node" attr.name="type" attr.type="int"/>
+    <key id="value" for="edge" attr.name="value" attr.type="double"/>
     <key id="address" for="edge" attr.name="address" attr.type="string"/>
-    <graph edgedefault="undirected">
+    <graph edgedefault="directed">
 
         <node id="1vFwH9nxXi2gmfZidWXJ2Ce774R4rb6ae">
             <data key="address">1vFwH9nxXi2gmfZidWXJ2Ce774R4rb6ae</data>
+            <data key="type">1</data>
         </node>
         <node id="16mk32aisAgXiebNiMpWj2QQGPtRmbkGQQ">
             <data key="address">16mk32aisAgXiebNiMpWj2QQGPtRmbkGQQ</data>
+            <data key="type">1</data>
         </node>
         <node id="13RdQJQEXBnuNnF9CenYAjxPs87qhAKRKv">
             <data key="address">13RdQJQEXBnuNnF9CenYAjxPs87qhAKRKv</data>
+            <data key="type">1</data>
+        </node>
+        <node id="b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c">
+            <data key="address">b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c</data>
+            <data key="type">2</data>
         </node>
 
+
+
         <!-- edges -->
-        <edge source="1vFwH9nxXi2gmfZidWXJ2Ce774R4rb6ae" target="16mk32aisAgXiebNiMpWj2QQGPtRmbkGQQ">
-            <!--<data key="value">0.00500000</data>-->
-            <data key="address">b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c</data>
+        <edge source="1vFwH9nxXi2gmfZidWXJ2Ce774R4rb6ae" target="b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c">
+            <data key="value">0.00500000</data>
         </edge>
-        <edge source="1vFwH9nxXi2gmfZidWXJ2Ce774R4rb6ae" target="13RdQJQEXBnuNnF9CenYAjxPs87qhAKRKv">
-            <!--<data key="weight">0.49282549</data>-->
-            <data key="address">b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c</data>
+        <edge source="b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c" target="16mk32aisAgXiebNiMpWj2QQGPtRmbkGQQ">
+            <data key="value">0.00500000</data>
+        </edge>
+        <edge source="1vFwH9nxXi2gmfZidWXJ2Ce774R4rb6ae" target="b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c">
+            <data key="value">0.49282549</data>
+        </edge>
+        <edge source="b3e7bb1628094ccda32deb594d57511289d2a0228fc097179e7cec550217136c" target="13RdQJQEXBnuNnF9CenYAjxPs87qhAKRKv">
+            <data key="value">0.49282549</data>
         </edge>
 
     </graph>
