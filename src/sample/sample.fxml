@@ -3,8 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,18 +13,17 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<?import prefux.FxDisplay?>
 <GridPane fx:id="grid" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1">
 
         <VBox>
-            <Label prefHeight="25.0" prefWidth="90" text="Adress:" />
+            <Label prefHeight="25.0" prefWidth="90" text="Adress:"/>
             <Label prefHeight="25.0" prefWidth="90" text="Transaction: " />
         </VBox>
 
         <VBox>
-            <TextField prefHeight="25.0" prefWidth="100" />
+            <TextField prefHeight="25.0" prefWidth="100" fx:id="addressField"/>
             <TextField prefHeight="25.0" prefWidth="100" />
         </VBox>
 
@@ -40,14 +37,7 @@
         <Button text="Switch to graph" onAction="#graph"/>
     </HBox>
 
-    <ImageView fx:id="image" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="false">
-        <image>
-            <Image url="@pattern_graph4.jpg" />
-        </image>
-
-    </ImageView>
-
-    <TableView fx:id="tableView" GridPane.columnIndex="1" GridPane.rowIndex="1" visible="true">
+    <TableView fx:id="tableView" GridPane.columnIndex="1" GridPane.rowIndex="1" >
         <columns>
             <TableColumn text="Transaction address">
                 <cellValueFactory><PropertyValueFactory property="transactionIdSP" />

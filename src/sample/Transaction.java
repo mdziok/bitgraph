@@ -23,6 +23,7 @@ public class Transaction {
     private List<String> addressesOut;
     private double fees;
     private List<String> txIn;
+    private boolean isCoinBase;
 
     public Transaction() {
         this("",0,0,new Date(),new ArrayList<>(),new ArrayList<>(),0);
@@ -43,6 +44,7 @@ public class Transaction {
         this.addressesOutSP = new SimpleStringProperty(addressesOut.toString());
         this.fees = fees;
         this.feesSP = new SimpleStringProperty(String.valueOf(fees));
+        this.isCoinBase = false;
     }
 
     public String getId() {
@@ -96,6 +98,14 @@ public class Transaction {
 
     public void setTxIn(List<String> txIn) {
         this.txIn = txIn;
+    }
+
+    public boolean isCoinBase() {
+        return isCoinBase;
+    }
+
+    public void setCoinBase(boolean coinBase) {
+        isCoinBase = coinBase;
     }
 
     public void setAddressesOut(List<String> addressesOut) {

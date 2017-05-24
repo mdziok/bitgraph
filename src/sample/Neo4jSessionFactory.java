@@ -1,7 +1,6 @@
 package sample;
 
 import org.neo4j.ogm.config.Configuration;
-import org.neo4j.ogm.service.Components;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
@@ -21,7 +20,7 @@ public class Neo4jSessionFactory {
         cfg.driverConfiguration()
                 .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
                 .setURI("http://localhost:7474")
-                .setCredentials("neo4j","neo4j");
+                .setCredentials("neo4j","123qwe");
         sessionFactory = new SessionFactory(cfg, "sample.domain");
     }
 
