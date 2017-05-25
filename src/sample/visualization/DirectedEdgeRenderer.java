@@ -1,7 +1,9 @@
 package sample.visualization;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import prefux.data.util.Point2D;

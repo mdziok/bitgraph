@@ -25,6 +25,7 @@ import prefux.render.*;
 import prefux.util.PrefuseLib;
 import prefux.util.collections.IntIterator;
 import sample.domain.WalletAddress;
+import sample.visualization.ClickControl;
 import sample.visualization.DirectedEdgeRenderer;
 import sample.visualization.EdgeLabelRenderer;
 
@@ -304,15 +305,15 @@ public class Controller {
 
                 CombinedRenderer combinedRenderer = new CombinedRenderer();
                 combinedRenderer.add(address);
-                combinedRenderer.add(labelRenderer);
+//                combinedRenderer.add(labelRenderer);
 
                 CombinedRenderer edgeCombinedRenderer = new CombinedRenderer();
 
                 DirectedEdgeRenderer edgeRenderer = new DirectedEdgeRenderer();
                 edgeCombinedRenderer.add(edgeRenderer);
 
-//                EdgeLabelRenderer edgeLabelRenderer = new EdgeLabelRenderer(TRG);
-//                edgeCombinedRenderer.add(edgeLabelRenderer);
+                EdgeLabelRenderer edgeLabelRenderer = new EdgeLabelRenderer(TRG);
+                edgeCombinedRenderer.add(edgeLabelRenderer);
 
                 DefaultRendererFactory rfa = new DefaultRendererFactory(combinedRenderer, edgeRenderer);
 //                rfa.add(addressPred, address);
@@ -344,7 +345,7 @@ public class Controller {
 
                 display = new FxDisplay(vis);
                 display.resize(300,300);
-                display.addControlListener(new DragControl());
+                display.addControlListener(new ClickControl(display));
                 vis.run("nodes");
                 vis.run("edges");
                 vis.run("layout");
